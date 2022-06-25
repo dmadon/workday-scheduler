@@ -31,7 +31,7 @@ var getTimeBlock = function(){
     for(i = 0; i < timeBlocks.length; i++){
         var timeBlockEl = document.createElement("div");
         timeBlockEl.classList=("row time-block");
-        timeBlockEl.id=timeBlocks[i];
+        // timeBlockEl.id=timeBlocks[i];
 
         // create hour label for each row and append to timeBlockEl
         var hourEl = document.createElement("div");
@@ -43,6 +43,8 @@ var getTimeBlock = function(){
         // create description input for each row and append to timeBlockEl
         var descriptionEl = document.createElement("textarea");
         descriptionEl.classList=("description col-9");
+        descriptionEl.id=timeBlocks[i];
+        descriptionEl.placeholder=("Click here to add a task");
         timeBlockEl.appendChild(descriptionEl);
 
 
@@ -58,15 +60,30 @@ var getTimeBlock = function(){
     }
     // append list group to container div
     listContainerEl.appendChild(listWrapperEl);
-
-
-
 }
 
 getTimeBlock();
 
+    
+var now = (moment().startOf('hour').format("h:mm a"));
+console.log("now:"+now);
+
+var compare = (moment("7:00 pm","h:mm a").format("h:mm a"));
+console.log("compare:"+compare);
 
 
 
+var compareTimes = function(){
+    if(now<compare){
+        console.log(now+" is before "+compare);
+    }
+    else if(now>compare){
+        console.log(now+" is after "+compare);
+    }
+    else if(now===compare){
+        console.log(now+" is the same as "+compare);
+    }
+}
 
+compareTimes();
 
