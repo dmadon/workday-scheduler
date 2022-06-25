@@ -24,16 +24,39 @@ console.log(timeBlocks.length);
 
 
 var getTimeBlock = function(){
+    // create list group to hold time block item rows
+    var listWrapperEl = document.createElement("div");
 
-    var listWrapperEl = document.createElement("ul");
-
+    // loop through all time block hours and create a row for each
     for(i = 0; i < timeBlocks.length; i++){
-        console.log(timeBlocks[i]); 
-        var timeBlockEl = document.createElement("li");
-        timeBlockEl.classList=("row hour");
-        timeBlockEl.textContent=timeBlocks[i];
+        var timeBlockEl = document.createElement("div");
+        timeBlockEl.classList=("row time-block");
+        timeBlockEl.id=timeBlocks[i];
+
+        // create hour label for each row and append to timeBlockEl
+        var hourEl = document.createElement("div");
+        hourEl.textContent=timeBlocks[i];
+        hourEl.classList=("hour col-2");
+        timeBlockEl.appendChild(hourEl);
+
+
+        // create description input for each row and append to timeBlockEl
+        var descriptionEl = document.createElement("textarea");
+        descriptionEl.classList=("description col-9");
+        timeBlockEl.appendChild(descriptionEl);
+
+
+        // create save button for each row and append to timeBlockEl
+        var saveBtnEl = document.createElement("button");
+        saveBtnEl.classList=("saveBtn col-1");
+        saveBtnEl.innerHTML=("<i class='fa fa-floppy-disk'></i>");
+        timeBlockEl.appendChild(saveBtnEl);
+
+
+        // append list item rows to list group
         listWrapperEl.appendChild(timeBlockEl);
     }
+    // append list group to container div
     listContainerEl.appendChild(listWrapperEl);
 
 
