@@ -70,7 +70,6 @@ getTimeBlock();
 // check to see if a time block is in the past, is the current block, or is in the future, and set css classes accordingly
 var compareTimes = function(){
 
-    
     // loop through all time blocks to compare the hour to the current hour
     for(i = 0; i < timeBlocks.length; i++){
 
@@ -80,34 +79,36 @@ var compareTimes = function(){
     // get the hour from each time block object
     var compare = (moment(timeBlocks[i].hour,"HH:mm a").format("HH:mm a"));
 
-
-        // check to see if the time block is in the future, compared to current hour
-        if(now<compare){
-            console.log(now+" is before "+compare);
-            // find the description element whose id is the same as the time block hour and add the "future" class to the classList
-            var descriptionEl = document.getElementById(timeBlocks[i].hour);
-            descriptionEl.classList=("description col-9 future");
-            console.log("future");
-            }
-        // check to see if the time block is in the past, compared to the current hour
-        else if(now>compare){
-            console.log(now+" is after "+compare);
-            // find the description element whose id is the same as the time block hour and add the "past" class to the classList
-            var descriptionEl = document.getElementById(timeBlocks[i].hour);
-            descriptionEl.classList=("description col-9 past");
-            console.log("past");
-            }
-        // check to see if the time block matches the current hour
-        else if(now===compare){
-            console.log(now+" is the same as "+compare);
-            // find the description element whose id is the same as the time block hour and add the "present" class to the classList
-            var descriptionEl = document.getElementById(timeBlocks[i].hour);
-            descriptionEl.classList=("description col-9 present");
-            console.log("present");
-            }
+    // check to see if the time block is in the future, compared to current hour
+    if(now<compare){
+        // find the description element whose id is the same as the time block hour and add the "future" class to the classList
+        var descriptionEl = document.getElementById(timeBlocks[i].hour);
+        descriptionEl.classList=("description col-9 future");
+        }
+    // check to see if the time block is in the past, compared to the current hour
+    else if(now>compare){
+        // find the description element whose id is the same as the time block hour and add the "past" class to the classList
+        var descriptionEl = document.getElementById(timeBlocks[i].hour);
+        descriptionEl.classList=("description col-9 past");
+        }
+    // check to see if the time block matches the current hour
+    else if(now===compare){
+        // find the description element whose id is the same as the time block hour and add the "present" class to the classList
+        var descriptionEl = document.getElementById(timeBlocks[i].hour);
+        descriptionEl.classList=("description col-9 present");
         }
     }
+}
 
+var runTimeCheck = function(){
+    // check time blocks every 7 minutes and update time block color status while page is open
+    timeCheck = setInterval(compareTimes,(60000 * 7));
+}
 
+// set time block colors immediately upon page load by running the compareTimes function
 compareTimes();
+
+// continue to update time block colors while page is open by running runTimeCheck function
+runTimeCheck();
+
 
