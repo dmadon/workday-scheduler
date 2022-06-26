@@ -75,10 +75,10 @@ var compareTimes = function(){
     for(i = 0; i < timeBlocks.length; i++){
 
     // define current hour
-    var now = (moment().startOf('hour').format("h:mm a"));
+    var now = (moment().startOf('hour').format("HH:mm a"));
 
     // get the hour from each time block object
-    var compare = (moment(timeBlocks[i].hour,"hh:mm a").format("hh:mm a"));
+    var compare = (moment(timeBlocks[i].hour,"HH:mm a").format("HH:mm a"));
 
 
         // check to see if the time block is in the future, compared to current hour
