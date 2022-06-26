@@ -21,8 +21,6 @@ var timeBlocks = [
     {hour:"6:00 pm", description:""},
 ];   
 
-console.log(timeBlocks.length);
-
 
 var getTimeBlock = function(){
     // create list group to hold time block item rows
@@ -98,6 +96,8 @@ var compareTimes = function(){
         descriptionEl.classList=("description col-9 present");
         }
     }
+
+    console.log("time check at "+moment().format("h:mm a"));
 }
 
 var runTimeCheck = function(){
