@@ -50,7 +50,8 @@ var getTimeBlock = function(){
         // create save button for each row and append to timeBlockEl
         var saveBtnEl = document.createElement("button");
         saveBtnEl.classList=("saveBtn col-1");
-        saveBtnEl.innerHTML=("<i class='fa fa-floppy-disk'></i>");
+        saveBtnEl.innerHTML=("<i class='fa fa-floppy-disk' data-btnHour="+JSON.stringify(timeBlocks[i].hour)+">"+"</i>");
+        saveBtnEl.setAttribute("data-btnHour",timeBlocks[i].hour);
         timeBlockEl.appendChild(saveBtnEl);
 
 
@@ -125,6 +126,30 @@ var updateTask = function(event){
     // insert the updated description into the timeBlocks array at the current index
     timeBlocks[arrayIndex].description=updatedValue;
     console.log(timeBlocks[arrayIndex]);
+};
+
+
+var storageArray = [];
+
+var saveToStorage = function(event){
+    // identify the element that was clicked using the data-btnHour attribute
+    var saveBtnClick = event.target.getAttribute("data-btnHour");
+        // if clicked element did have a data-btnHour attribute, get the description element from the same row
+        if(saveBtnClick){
+            // if the corresponding description element is not null, return the description
+            if(document.getElementById(saveBtnClick).value){
+                var saveDescription = document.getElementById(saveBtnClick).value;
+                console.log(saveBtnClick+", "+saveDescription);  
+        }
+
+    }
 }
 
+
+
+
+
+
 listContainerEl.addEventListener("change",updateTask);
+
+listContainerEl.addEventListener("click",saveToStorage);
