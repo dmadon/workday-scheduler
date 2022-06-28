@@ -112,3 +112,19 @@ compareTimes();
 runTimeCheck();
 
 
+var updateTask = function(event){
+    // get the id of the element that was just changed
+    var updatedTask = event.target.id;
+    console.log(updatedTask);
+    // get updated description
+    var updatedValue = event.target.value.trim();
+    console.log(updatedValue);
+    // get the index of the timeBlocks array object that matches the updated task's id
+    var arrayIndex = timeBlocks.findIndex(element=>element.hour===updatedTask);
+    console.log(arrayIndex);
+    // insert the updated description into the timeBlocks array at the current index
+    timeBlocks[arrayIndex].description=updatedValue;
+    console.log(timeBlocks[arrayIndex]);
+}
+
+listContainerEl.addEventListener("change",updateTask);
