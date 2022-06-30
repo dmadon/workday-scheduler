@@ -131,7 +131,9 @@ var saveToStorage = function(event){
     // identify the element that was clicked using the data-btnHour attribute
     var saveBtnClick = event.target.getAttribute("data-btnHour");  
 
+
     if(saveBtnClick){
+
 
         // loop through storageArray to find out if the time block is already saved in local storage    
         for(i = 0; i<storageArray.length; i++){
@@ -145,6 +147,7 @@ var saveToStorage = function(event){
                 storageArray[targetIndex] = {"hour": saveBtnClick, "description": document.getElementById(saveBtnClick).value};
                 console.log("updated storage array");
                 console.log(storageArray);
+                
                 break;      
             }
             // if there is not already a saved object for the time block, create one in storageArray
@@ -153,6 +156,7 @@ var saveToStorage = function(event){
                 storageArray.push ({"hour": saveBtnClick, "description": document.getElementById(saveBtnClick).value});
                 console.log("pushed new object");
                 console.log(storageArray);
+                
                 break;
             }
         }
@@ -175,11 +179,13 @@ var loadSavedDescriptions = function(){
             var loadContent = document.getElementById(saved[i].hour);
             // set the text content of the appropriate textarea to the saved description retrieved from localStorage
             loadContent.textContent=saved[i].description;
+            // push the saved content into the storageArray
+            storageArray.push({"hour":saved[i].hour,"description":saved[i].description});
         }
     }
 }
-loadSavedDescriptions();
 
+loadSavedDescriptions();
 
 
 listContainerEl.addEventListener("change",updateTask);
