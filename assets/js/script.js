@@ -2,7 +2,7 @@ var listContainerEl = document.querySelector(".container");
 
 
 var currentDay = moment().format("dddd, MMMM D, YYYY");
-console.log(currentDay);
+
 
 $("#currentDay").text(currentDay);
 
@@ -98,7 +98,7 @@ var compareTimes = function(){
         }
     }
 
-    console.log("time check at "+moment().format("h:mm a"));
+    // console.log("time check at "+moment().format("h:mm a"));
 }
 
 var runTimeCheck = function(){
@@ -116,33 +116,53 @@ runTimeCheck();
 var updateTask = function(event){
     // get the id of the element that was just changed
     var updatedTask = event.target.id;
-    console.log(updatedTask);
+    // console.log(updatedTask);
     // get updated description
     var updatedValue = event.target.value.trim();
-    console.log(updatedValue);
+    // console.log(updatedValue);
     // get the index of the timeBlocks array object that matches the updated task's id
     var arrayIndex = timeBlocks.findIndex(element=>element.hour===updatedTask);
-    console.log(arrayIndex);
+    // console.log(arrayIndex);
     // insert the updated description into the timeBlocks array at the current index
     timeBlocks[arrayIndex].description=updatedValue;
-    console.log(timeBlocks[arrayIndex]);
+    // console.log(timeBlocks[arrayIndex]);
 };
 
 
-var storageArray = [];
+var storageArray = [""];
 
 var saveToStorage = function(event){
     // identify the element that was clicked using the data-btnHour attribute
-    var saveBtnClick = event.target.getAttribute("data-btnHour");
-        // if clicked element did have a data-btnHour attribute, get the description element from the same row
-        if(saveBtnClick){
-            // if the corresponding description element is not null, return the description
-            if(document.getElementById(saveBtnClick).value){
-                var saveDescription = document.getElementById(saveBtnClick).value;
-                console.log(saveBtnClick+", "+saveDescription);  
-        }
+    var saveBtnClick = event.target.getAttribute("data-btnHour");  
 
+    if(saveBtnClick){
+
+        // loop through storageArray to find out if the time block is already saved in local storage    
+        for(i = 0; i<storageArray.length; i++){
+
+            // if there is already an object for this time block saved in local storage, get index of that object or return -1
+            var targetIndex = storageArray.findIndex(element=>{if(element.hour===saveBtnClick){return true}});
+            
+            // if an object was found in storageArray, update the existing index object with the current information
+            if(targetIndex !== -1){
+
+                storageArray[targetIndex] = {"hour": saveBtnClick, "description": document.getElementById(saveBtnClick).value};
+                console.log("updated storage array");
+                console.log(storageArray);
+                break;      
+            }
+            // if there is not already a saved object for the time block, create one in storageArray
+            else{
+
+                storageArray.push ({"hour": saveBtnClick, "description": document.getElementById(saveBtnClick).value});
+                console.log("pushed new object");
+                console.log(storageArray);
+                break;
+            }
+        }
     }
+// save the storageArray to localStorage
+localStorage.setItem("savedTimeBlocks", JSON.stringify(storageArray));
 }
 
 
