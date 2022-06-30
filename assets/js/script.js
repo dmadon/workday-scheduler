@@ -6,6 +6,7 @@ var currentDay = moment().format("dddd, MMMM D, YYYY");
 
 $("#currentDay").text(currentDay);
 
+// define time blocks for the work day
 var timeBlocks = [
     {hour:"7:00 am", description:""},
     {hour:"8:00 am", description:""},
@@ -21,7 +22,7 @@ var timeBlocks = [
     {hour:"6:00 pm", description:""},
 ];   
 
-
+// build time blocks on the page
 var getTimeBlock = function(){
     // create list group to hold time block item rows
     var listWrapperEl = document.createElement("div");
@@ -38,14 +39,12 @@ var getTimeBlock = function(){
         hourEl.classList=("hour col-2");
         timeBlockEl.appendChild(hourEl);
 
-
         // create description input for each row and append to timeBlockEl
         var descriptionEl = document.createElement("textarea");
         descriptionEl.classList=("description col-9");
         descriptionEl.id=timeBlocks[i].hour;
         descriptionEl.placeholder=("Click here to add a task");
         timeBlockEl.appendChild(descriptionEl);
-
 
         // create save button for each row and append to timeBlockEl
         var saveBtnEl = document.createElement("button");
@@ -54,7 +53,6 @@ var getTimeBlock = function(){
         saveBtnEl.setAttribute("data-btnHour",timeBlocks[i].hour);
         timeBlockEl.appendChild(saveBtnEl);
 
-
         // append list item rows to list group
         listWrapperEl.appendChild(timeBlockEl);
     }
@@ -62,8 +60,8 @@ var getTimeBlock = function(){
     listContainerEl.appendChild(listWrapperEl);
 }
 
+// call function to build time blocks immediately upon page load
 getTimeBlock();
-
 
 
 // check to see if a time block is in the past, is the current block, or is in the future, and set css classes accordingly
@@ -97,8 +95,6 @@ var compareTimes = function(){
         descriptionEl.classList=("description col-9 present");
         }
     }
-
-    // console.log("time check at "+moment().format("h:mm a"));
 }
 
 var runTimeCheck = function(){
@@ -165,8 +161,24 @@ var saveToStorage = function(event){
 localStorage.setItem("savedTimeBlocks", JSON.stringify(storageArray));
 }
 
+// get the saved content from local storage and display it in the appropriate time blocks on the page
+var loadSavedDescriptions = function(){
 
+    // get the saved content from local storage
+    var saved = localStorage.getItem("savedTimeBlocks");
 
+    // if there was any saved content, parse it back into an array of objects
+    if(saved){
+        saved = JSON.parse(saved);
+        // loop through the array of saved content and find the textarea on the page whose id matches the hour property from each object in the array
+        for(i = 1; i < saved.length; i++){
+            var loadContent = document.getElementById(saved[i].hour);
+            // set the text content of the appropriate textarea to the saved description retrieved from localStorage
+            loadContent.textContent=saved[i].description;
+        }
+    }
+}
+loadSavedDescriptions();
 
 
 
