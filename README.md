@@ -21,3 +21,4 @@ View the repository: https://github.com/dmadon/workday-scheduler
 
 ## Preview
 
+![image](https://user-images.githubusercontent.com/99852346/176814096-b85e9bf7-7b1a-4c12-b510-c3b52b5c4d12.png)
