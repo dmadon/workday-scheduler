@@ -35,13 +35,13 @@ var getTimeBlock = function(){
 
         // create hour label for each row and append to timeBlockEl
         var hourEl = document.createElement("div");
-        hourEl.textContent=timeBlocks[i].hour;
-        hourEl.classList=("hour col-2");
+        hourEl.textContent=moment(timeBlocks[i].hour,"h:mm a").format("hA");
+        hourEl.classList=("hour col-1");
         timeBlockEl.appendChild(hourEl);
 
         // create description input for each row and append to timeBlockEl
         var descriptionEl = document.createElement("textarea");
-        descriptionEl.classList=("description col-9");
+        descriptionEl.classList=("description col-10");
         descriptionEl.id=timeBlocks[i].hour;
         descriptionEl.placeholder=("Click here to add a task");
         timeBlockEl.appendChild(descriptionEl);
