@@ -26,6 +26,7 @@ var timeBlocks = [
 var getTimeBlock = function(){
     // create list group to hold time block item rows
     var listWrapperEl = document.createElement("div");
+    listWrapperEl.className=("container");
 
     // loop through all time block hours and create a row for each
     for(i = 0; i < timeBlocks.length; i++){
@@ -108,23 +109,6 @@ compareTimes();
 // continue to update time block colors while page is open by running runTimeCheck function
 runTimeCheck();
 
-
-var updateTask = function(event){
-    // get the id of the element that was just changed
-    var updatedTask = event.target.id;
-    // console.log(updatedTask);
-    // get updated description
-    var updatedValue = event.target.value.trim();
-    // console.log(updatedValue);
-    // get the index of the timeBlocks array object that matches the updated task's id
-    var arrayIndex = timeBlocks.findIndex(element=>element.hour===updatedTask);
-    // console.log(arrayIndex);
-    // insert the updated description into the timeBlocks array at the current index
-    timeBlocks[arrayIndex].description=updatedValue;
-    // console.log(timeBlocks[arrayIndex]);
-};
-
-
 var storageArray = [""];
 
 var saveToStorage = function(event){
@@ -187,7 +171,5 @@ var loadSavedDescriptions = function(){
 
 loadSavedDescriptions();
 
-
-listContainerEl.addEventListener("change",updateTask);
 
 listContainerEl.addEventListener("click",saveToStorage);
